@@ -14,7 +14,7 @@ $state = db_fetch_assoc($state_result);
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <div id="main-content">
-  <a href="#add_a_url">Back to States List</a><br />
+  <a href="index.php">Back to States List</a><br />
 
   <h1>State: <?php echo $state['name']; ?></h1>
 
@@ -35,12 +35,10 @@ $state = db_fetch_assoc($state_result);
     echo "</table>";
 ?>
     <br />
-    <a href="#add_a_url">Edit</a><br />
+    <a href="edit.php?id=<?php echo urlencode($state['id'])?>">Edit</a><br />
     <hr />
 
     <h2>Territories</h2>
-    <br />
-    <a href="#add_a_url">Add a Territory</a><br />
 
 <?php
     $territory_result = find_territories_for_state_id($state['id']);
@@ -48,7 +46,7 @@ $state = db_fetch_assoc($state_result);
     echo "<ul id=\"territories\">";
     while($territory = db_fetch_assoc($territory_result)) {
       echo "<li>";
-      echo "<a href=\"#add_a_url\">";
+      echo "<a href=\"../territories/show.php?id=" . $territory['id'] . "\">";
       echo $territory['name'];
       echo "</a>";
       echo "</li>";
@@ -58,6 +56,8 @@ $state = db_fetch_assoc($state_result);
 
     db_free_result($state_result);
   ?>
+
+    <a href="../territories/new.php?state_id=<?php echo $state['id'] ?>">Add a Territory</a><br />
 
 </div>
 
